@@ -1,0 +1,27 @@
+#deals {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.card {
+  background-color: #F3F3F3;
+  width: 200px;
+  margin: 7px;
+  padding: 5px;
+}
+
+a {
+  font-weight: bold;
+  font-family: helevetica;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+#fetch-more {
+  background-color: green;
+  color: white;
+  margin-bottom: 50px;
+  padding: 10px;
+  font-size: 30px;
+  cursor: pointer;
+}

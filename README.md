@@ -1,0 +1,1 @@
+# effects-deals-finder
