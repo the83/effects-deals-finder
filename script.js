@@ -2,23 +2,38 @@ var EFFECTS_PATH = 'https://reverb.com/api/categories/effects-and-pedals';
 var PRICE_GUIDE_PATH = 'https://reverb.com/api/priceguide';
 var listings = [];
 
+function setLoading() {
+  $('.loader').removeClass('hidden');
+}
+
+function endLoading() {
+  $('.loader').addClass('hidden');
+}
+
 function fetchListings(page, timeout) {
   page = page || 1;
   timeout = timeout || 0;
-  setTimeout(function() {
+
+  Q.delay(timeout).then(function() {
+    setLoading();
     return $.ajax({
       url: EFFECTS_PATH,
       data: {
         page: page
       }
     }).done(function(response) {
-      var pricingTimeout = 500;
+      var pricingTimeout = 0;
+      var pricingRequests = [];
       for (var i = 0; i < response.listings.length; i++) {
-        fetchPricing(response.listings[i], pricingTimeout);
-        pricingTimeout += 500;
+        pricingRequests.push(
+          fetchPricing(response.listings[i], pricingTimeout += 200)
+        );
       }
+      return Q.all(pricingRequests).finally(function() {
+        endLoading();
+      });
     });
-  }, 2000);
+  });
 }
 
 function buildQuery(listing) {
@@ -26,11 +41,11 @@ function buildQuery(listing) {
 }
 
 function fetchPricing(listing, timeout) {
-  setTimeout(function() {
-    if (alreadyFlagged(listing)) {
-      return;
-    }
+  if (alreadyFlagged(listing)) {
+    return;
+  }
 
+  return Q.delay(timeout).then(function() {
     var request = $.ajax({
       url: PRICE_GUIDE_PATH,
       data: {
@@ -45,7 +60,9 @@ function fetchPricing(listing, timeout) {
         renderDeal(listing);
       }
     });
-  }, timeout);
+
+    return request;
+  });
 }
 
 function goodDeal(listing, priceGuide) {
@@ -64,15 +81,8 @@ function getFirstTwentyPages() {
   }
 }
 
-function poll() {
-  setTimeout(function() {
-    fetchListings();
-    poll();
-  }, 30000);
-}
-
 function renderDeal(listing) {
-  $('#deals').append(
+  $('#deals').prepend(
     '<div class="card">' +
       '<a href="' + listing._links.web.href + '">'  +
         '<div>' + listing.title + ' ' + listing.price.display + '</div>' +
