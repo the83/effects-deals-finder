@@ -86,20 +86,22 @@ function getFirstTwentyPages() {
 function renderDeal(listing) {
   $('#deals').append(
     '<div class="card">' +
-      '<a href="' + listing._links.web.href + '">'  +
-        '<div>' + listing.title + '</div>' +
-        '<img src="' + listing.photos[0]._links.thumbnail.href + '" />' +
-        '<div>' +
-          '<span class="condition">' + listing.condition + '</span>' +
-          '<span class="pricing">' + listing.price.display + '/' + listing.shipping.us_rate.display + '</span>' +
-        '</div>' +
-      '</a>' +
+      '<div class="card-header">' +
+        '<a href="' + listing._links.web.href + '">'  +
+          listing.title +
+        '</a>' +
+      '</div>' +
+      '<img class="card-image" src="' + listing.photos[0]._links.thumbnail.href + '" />' +
+      '<div class="card-footer">' +
+        '<span class="condition">' + listing.condition + '</span>' +
+        '<span class="pricing">' + listing.price.display + '/' + listing.shipping.us_rate.display + '</span>' +
+      '</div>' +
     '</div>'
   );
 }
 
 $('document').ready(function() {
-  getFirstTwentyPages();
+  // getFirstTwentyPages();
 
   $('#fetch-more').on('click', function() {
     getFirstTwentyPages();

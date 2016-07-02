@@ -10,6 +10,7 @@ body {
 }
 
 .card {
+  position: relative;
   background-color: #fdf5e6;
   width: 200px;
   margin: 7px;
@@ -23,8 +24,27 @@ body {
   border: 1px solid black;
 }
 
+.card-header {
+  text-align: top;
+}
+
+.card-footer {
+  /* position: absolute; */
+  /* bottom: 0; */
+}
+
+.card-image {
+  padding-bottom: 10px;
+}
+
+.condition {
+  position: absolute;
+  bottom: 0;
+}
 .pricing {
-  float: right;
+  position: absolute;
+  bottom: 0;
+  right: 10px;
 }
 
 a {
@@ -42,11 +62,25 @@ a {
   border-radius: 50px;
   border: 1px solid orange;
   background-color: #fdf5e6;
+  text-align: top;
+  padding: 10px;
 }
 
 #fetch-more:hover {
   background-color: orange;
   color: white;
+}
+
+.loader {
+  display: inline-block;
+  margin: 0px;
+  border: 1px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 3px solid orange;
+  width: 15px;
+  height: 15px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
 }
 
 .hidden {
@@ -57,17 +91,6 @@ a {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-}
-
-.loader {
-  margin: 10px;
-  border: 3px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 3px solid orange;
-  width: 30px;
-  height: 30px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
 }
 
 @-webkit-keyframes spin {
