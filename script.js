@@ -3,6 +3,7 @@ var PRICE_GUIDE_PATH = 'https://reverb.com/api/priceguide';
 var listings = [];
 shippingPrice = 10;
 threshold = 10;
+numPages = 1;
 
 function setLoading() {
   $('.loader').removeClass('hidden');
@@ -75,12 +76,15 @@ function alreadyFlagged(listing) {
   return _.findWhere(listings, { id: listing.id });
 }
 
-function getFirstTwentyPages() {
+function fetchPages(event) {
   var timeout = 0;
-  for (var page = 1; page <= 20; page++) {
-    timeout += 2000;
+
+  for (var page = 1; page <= numPages; page++) {
     fetchListings(page, timeout);
+    timeout += 2000;
   }
+
+  return false;
 }
 
 function renderDeal(listing) {
@@ -93,7 +97,7 @@ function renderDeal(listing) {
       '</div>' +
       '<img class="card-image" src="' + listing.photos[0]._links.thumbnail.href + '" />' +
       '<div class="card-footer">' +
-        '<span class="condition">' + listing.condition + '</span>' +
+        '<span class="condition">' + listing.condition + ': </span>' +
         '<span class="pricing">' + listing.price.display + '/' + listing.shipping.us_rate.display + '</span>' +
       '</div>' +
     '</div>'
@@ -101,9 +105,12 @@ function renderDeal(listing) {
 }
 
 $('document').ready(function() {
-  // getFirstTwentyPages();
+  $('#num-pages').val(numPages);
+  fetchPages(numPages);
 
-  $('#fetch-more').on('click', function() {
-    getFirstTwentyPages();
+  $('#deal-fetcher').on('submit', function(e) {
+    e.preventDefault();
+    numPages = $('#num-pages').val();
+    fetchPages(numPages);
   });
 });
