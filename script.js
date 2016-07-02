@@ -1,6 +1,8 @@
 var EFFECTS_PATH = 'https://reverb.com/api/categories/effects-and-pedals';
 var PRICE_GUIDE_PATH = 'https://reverb.com/api/priceguide';
 var listings = [];
+shippingPrice = 10;
+threshold = 10;
 
 function setLoading() {
   $('.loader').removeClass('hidden');
@@ -66,7 +68,7 @@ function fetchPricing(listing, timeout) {
 }
 
 function goodDeal(listing, priceGuide) {
-  return (priceGuide.estimated_value.bottom_price + 10) >= listing.price.amount;
+  return (priceGuide.estimated_value.bottom_price + threshold + shippingPrice) >= (listing.price.amount + shippingPrice);
 }
 
 function alreadyFlagged(listing) {
@@ -85,8 +87,12 @@ function renderDeal(listing) {
   $('#deals').append(
     '<div class="card">' +
       '<a href="' + listing._links.web.href + '">'  +
-        '<div>' + listing.title + ' ' + listing.price.display + '</div>' +
+        '<div>' + listing.title + '</div>' +
         '<img src="' + listing.photos[0]._links.thumbnail.href + '" />' +
+        '<div>' +
+          '<span class="condition">' + listing.condition + '</span>' +
+          '<span class="pricing">' + listing.price.display + '/' + listing.shipping.us_rate.display + '</span>' +
+        '</div>' +
       '</a>' +
     '</div>'
   );
@@ -96,6 +102,6 @@ $('document').ready(function() {
   getFirstTwentyPages();
 
   $('#fetch-more').on('click', function() {
-    fetchListings();
+    getFirstTwentyPages();
   });
 });
