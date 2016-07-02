@@ -1,27 +1,77 @@
+body {
+  font-family: "Courier New", Courier, monospace;
+  background-color: #f2f2f2;
+}
+
 #deals {
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
 }
 
 .card {
-  background-color: #F3F3F3;
+  background-color: #fdf5e6;
   width: 200px;
   margin: 7px;
-  padding: 5px;
+  padding: 10px;
+  border: 1px solid orange;
+  background-color: #fdf5e6;
+}
+
+.card:hover {
+  background-color: orange;
+  border: 1px solid black;
 }
 
 a {
   font-weight: bold;
-  font-family: helevetica;
   font-size: 18px;
   text-decoration: none;
+  color: black;
 }
 
 #fetch-more {
-  background-color: green;
-  color: white;
-  margin-bottom: 50px;
-  padding: 10px;
-  font-size: 30px;
+  margin: 10px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 20px;
   cursor: pointer;
+  border-radius: 50px;
+  border: 1px solid orange;
+  background-color: #fdf5e6;
+}
+
+#fetch-more:hover {
+  background-color: orange;
+  color: white;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+#actions {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.loader {
+  margin: 10px;
+  border: 3px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 3px solid orange;
+  width: 30px;
+  height: 30px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
