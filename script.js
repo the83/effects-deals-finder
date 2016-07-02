@@ -82,7 +82,7 @@ function getFirstTwentyPages() {
 }
 
 function renderDeal(listing) {
-  $('#deals').prepend(
+  $('#deals').append(
     '<div class="card">' +
       '<a href="' + listing._links.web.href + '">'  +
         '<div>' + listing.title + ' ' + listing.price.display + '</div>' +
