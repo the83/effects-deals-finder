@@ -1,9 +1,15 @@
 <html>
   <head>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/q.js/0.9.2/q.min.js"></script>
+    <script src="script/api.js"></script>
+    <script src="script/page_state.js"></script>
+    <script src="script/deal_finder.js"></script>
+    <script src="script/dom_interactions.js"></script>
     <script src="script.js"></script>
 
     <link rel="stylesheet" type="text/css" href="styles.css">
@@ -14,15 +20,37 @@
     <div id="deals">
     </div>
 
-    <div id="actions">
-      <form id="deal-fetcher">
-        <label for"num-pages"># Pages</label>
-        <input name= "num-pages" id="num-pages"></input>
-        <button id="fetch-more">
-          <span>Fetch More!</span>
-          <div class="loader"></div>
-        </button>
-      </form>
-    </div>
+    <form id="deal-fetcher">
+      <div class="fields"
+        <div class="field">
+          <button id="fetch-more">
+            <span>Fetch More!</span>
+            <div class="loader"></div>
+          </button>
+        </div>
+      </div>
+
+      <div class="fields">
+        <div class="field">
+          <label for="categories">Category</label>
+          <select name="categories" id="categories"></select>
+        </div>
+
+        <div class="field">
+          <label for="threshold">$ Above Price Guide Min</label>
+          <input name="threshold" id="threshold" type="number"></input>
+        </div>
+
+        <div class="field">
+          <label for="shipping-price">Your Shipping Price</label>
+          <input name= "shipping-price" id="shipping-price" type="number"></input>
+        </div>
+
+        <div class="field">
+          <label for="num-pages"># of API Pages to Scrape</label>
+          <input name= "num-pages" id="num-pages" type="number"></input>
+        </div>
+      </div>
+    </form>
   </body>
 </html>
